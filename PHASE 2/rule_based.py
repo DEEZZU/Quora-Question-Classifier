@@ -1,5 +1,6 @@
 import csv
 import nltk
+print("here")
 from nltk.tokenize import RegexpTokenizer
 tokenizer = RegexpTokenizer(r'\w+')
 l=[]
@@ -10,7 +11,7 @@ with open('info_question.csv', 'r') as f:
     quoraDataset = list(csv.reader(f, delimiter=','))
 
 quora=quoraDataset[0:300]
-
+print("here")
 with open('opinion_question.csv', 'r') as f:
     quoraDataset = list(csv.reader(f, delimiter=','))
 
@@ -18,7 +19,7 @@ quora.extend(quoraDataset[0:300])
 
 quoraCopy=quora
 
-#print(quora)
+print("quora")
 len_quora=len(quora)
 for i in range(0,len_quora):
     q=nltk.pos_tag(tokenizer.tokenize(quora[i][0]))
@@ -140,4 +141,14 @@ with open('dataset.csv', 'w') as csvFile:
 
 csvFile.close()
 
+for i in range(0,len(newList)) :
+    for j in range(0,7) :
+        if newList[i][j] >1:
+            newList[i][j]=1
 
+with open('dataset_boolean.csv', 'w') as csvFile:
+    writer = csv.writer(csvFile)
+    writer.writerow(["Label","CC","EX","JJS","MD","PRP","PRP$"])#,"EX"
+    writer.writerows(newList)
+
+csvFile.close()

@@ -1,9 +1,9 @@
 library(caret)
 library(RWeka)
 
-file="/Users/deeps/Desktop/QUORA/dataset.csv"
+file="/Users/deeps/Desktop/Quora-Question-Classifier/PHASE 2/dataset.csv"
 data1 = read.csv(file,header=FALSE, sep = ",")
-colnames(data1)<-c("Label","CC","EX","JJS","MD","PRP","PRP$")
+colnames(data1)<-c("Label","CC","JJS","MD","PRP","PRP$")
 TrainData <- data1[2:601,2:7]
 TrainClasses <- as.character(data1[2:601,1])
 jripFit <- train(TrainData, TrainClasses,method = "JRip")

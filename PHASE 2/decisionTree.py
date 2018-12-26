@@ -5,6 +5,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 from sklearn import tree
 from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
 
 dataSet = pd.read_csv('dataset.csv',sep= ',', header= 0)
 print(":::::Decision Tree:::::")
@@ -14,7 +15,7 @@ print(":::::Decision Tree:::::")
 #print("Dataset Shape:: ", X.shape)
 #print("Dataset Head:::::\n ", dataSet.head())
 
-X = dataSet.values[:, 1:6]
+X = dataSet.values[:, 1:7]
 Y = dataSet.values[:,0]
 print("Dataset Lenght:: ", len(X))
 print("Dataset Shape:: ", X.shape)
@@ -39,6 +40,8 @@ threshold = clf_gini.tree_.threshold
 
 y_pred = clf_gini.predict(X_test)
 print("Accuracy:: ", accuracy_score(y_test,y_pred)*100)
+m=confusion_matrix(y_test, y_pred)
+print(m)
 
 report = classification_report(y_test, y_pred)
 print(report)
@@ -57,6 +60,9 @@ clf_entropy.fit(X_train, y_train)
 
 y_pred_en = clf_entropy.predict(X_test)
 print("Accuracy is ", accuracy_score(y_test,y_pred_en)*100)
+
+m=confusion_matrix(y_test, y_pred_en)
+print(m)
 
 report = classification_report(y_test, y_pred_en)
 print(report)
