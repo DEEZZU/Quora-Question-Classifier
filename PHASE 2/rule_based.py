@@ -133,11 +133,26 @@ for i in range(0,len(newList)) :
         newList[i][0]=0
     else :
         newList[i][0]=1
-           
+
+list2 = [1,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39]
+newList2 = [[l[i] for i in list2] for l in quora]
+
+for i in range(0,len(newList2)) :
+    if newList2[i][0] == "information" :
+        newList2[i][0]=0
+    else :
+        newList2[i][0]=1
+
 with open('dataset.csv', 'w') as csvFile:
     writer = csv.writer(csvFile)
     writer.writerow(["Label","CC","EX","JJS","MD","PRP","PRP$"])#,"EX"
     writer.writerows(newList)
+
+csvFile.close()
+
+with open('dataset_full.csv', 'w') as csvFile:
+    writer = csv.writer(csvFile)
+    writer.writerows(newList2)
 
 csvFile.close()
 
@@ -150,5 +165,21 @@ with open('dataset_boolean.csv', 'w') as csvFile:
     writer = csv.writer(csvFile)
     writer.writerow(["Label","CC","EX","JJS","MD","PRP","PRP$"])#,"EX"
     writer.writerows(newList)
+
+csvFile.close()
+
+
+list2 = [1,12,22,33,36]
+newList2 = [[l[i] for i in list2] for l in quora]
+
+for i in range(0,len(newList2)) :
+    if newList2[i][0] == "information" :
+        newList2[i][0]=0
+    else :
+        newList2[i][0]=1
+
+with open('dataset_sel.csv', 'w') as csvFile:
+    writer = csv.writer(csvFile)
+    writer.writerows(newList2)
 
 csvFile.close()

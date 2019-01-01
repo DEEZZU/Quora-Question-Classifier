@@ -4,10 +4,10 @@ library(RWeka)
 file="/Users/deeps/Desktop/Quora-Question-Classifier/PHASE 2/dataset.csv"
 data1 = read.csv(file,header=FALSE, sep = ",")
 colnames(data1)<-c("Label","CC","JJS","MD","PRP","PRP$")
-TrainData <- data1[2:601,2:7]
+TrainData <- data1[2:601,2:6]
 TrainClasses <- as.character(data1[2:601,1])
 jripFit <- train(TrainData, TrainClasses,method = "JRip")
-plot(jripFit)
+jjrplot(jripFit)
 m<-summary(jripFit)
 
 library(rpart.plot)

@@ -7,15 +7,15 @@ from sklearn import tree
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 
-dataSet = pd.read_csv('dataset.csv',sep= ',', header= 0)
+dataSet = pd.read_csv('dataset_sel.csv',sep= ',', header=None)
 print(":::::Decision Tree:::::")
 #X = dataSet.values[::2, 1:6]
 #Y = dataSet.values[::2,0]
 #print("Dataset Lenght:: ", len(X))
-#print("Dataset Shape:: ", X.shape)
+print("Dataset Shape:: ", dataSet.shape)
 #print("Dataset Head:::::\n ", dataSet.head())
 
-X = dataSet.values[:, 1:7]
+X = dataSet.values[:, 1:15]
 Y = dataSet.values[:,0]
 print("Dataset Lenght:: ", len(X))
 print("Dataset Shape:: ", X.shape)
