@@ -1,56 +1,38 @@
 #libraries required
 import csv
-import nltk
-from nltk.tokenize import RegexpTokenizer
 import requests
 from bs4 import BeautifulSoup
-import pprint
 
 # ALGORITHM
-
+# while creating url take care of apostrophes : old's in url is given as olds
 # read csv of questions
-with open('info_question.csv', 'r') as f:
-    quoraDataset = list(csv.reader(f, delimiter=','))
-quora=quoraDataset[0:300]
-
-with open('opinion_question.csv', 'r') as f:
-    quoraDataset = list(csv.reader(f, delimiter=','))
-quora.extend(quoraDataset[0:300])
-
-# convert each question to url format : https://www.quora.com/(question words separated by -) , remove punctuations
-tokenizer = RegexpTokenizer(r'\w+')
-len_quora = len(quora)
-for i in range(0, len_quora) :
-    q = tokenizer.tokenize(quora[i][0])
-    len_q = len(q)
-    url = "https://www.quora.com/"
-    url += q[0]
-    for j in range(1, len_q):
-        url += "-"
-        url += q[j]
-    quora[i].append(url)
-
-print(quora[0])
-
-
-# write urls to a file for record
-with open('questionUrl.csv', 'w') as csvFile:
-    writer = csv.writer(csvFile)
-    writer.writerows(quora)
+with open('scrappedLabels.csv', 'r') as f:
+    quora = list(csv.reader(f, delimiter=','))
+#print(quora[0])
 
 # pass each as url to get labels : append labels to each question
-for i in range(0, len_quora):
-    url = quora[i][2]
-    page = requests.get(url)
-    soup = BeautifulSoup(page.content, 'html.parser')
-    resultSpan = soup.find_all('span', attrs={'class':'TopicName TopicNameSpan'})
-    for j in range(len(resultSpan)):
-        resultSpan[j]=str(resultSpan[j])
-    newResult = []
-    for k in range(len(resultSpan)):
-        x = resultSpan[k].split('">')
-        y = (x[1]).split('<')
-        quora[i].extend(y[0])
+for i in range(10, 50):
+    if quora[i][3] == '0' :
+        #print("here")
+        url = quora[i][2]
+        #print(url)
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        resultSpan = soup.find_all('span', attrs={'class':'TopicName TopicNameSpan'})
+        if not resultSpan :
+            resultSpan = soup.find_all('span', attrs={'class':'TopicNameSpan TopicName'})
+        #it may be TopicNameSpan TopicName
+        for j in range(len(resultSpan)):
+            resultSpan[j]=str(resultSpan[j])
+        newResult = []
+        for k in range(len(resultSpan)):
+            x = resultSpan[k].split('">')
+            y = (x[1]).split('<')
+            newResult.append(y[0])
+                #print(str(i)+" "+ str(newResult))
+        if not not newResult :
+            quora[i].extend(newResult)
+            quora[i][3] = 1
 
 # write labels into the file
 with open('scrappedLabels.csv', 'w') as csvFile:
