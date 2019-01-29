@@ -11,7 +11,7 @@ with open('scrappedLabels.csv', 'r') as f:
 #print(quora[0])
 
 # pass each as url to get labels : append labels to each question
-for i in range(500, 600):
+for i in range(0, 600):
     if quora[i][3] == '0' :
         #print("here")
         url = quora[i][2]
@@ -29,7 +29,7 @@ for i in range(500, 600):
             x = resultSpan[k].split('">')
             y = (x[1]).split('<')
             newResult.append(y[0])
-                #print(str(i)+" "+ str(newResult))
+            print(str(i)+" "+ str(newResult))
         if not not newResult :
             quora[i].extend(newResult)
             quora[i][3] = 1
