@@ -19,7 +19,7 @@ quora.extend(quoraDataset[0:300])
 
 quoraCopy=quora
 
-print("quora")
+print(len(quora))
 len_quora=len(quora)
 for i in range(0,len_quora):
     q=nltk.pos_tag(tokenizer.tokenize(quora[i][0]))
@@ -124,10 +124,10 @@ with open('ruleBased2Classes.csv', 'w') as csvFile:
 
 csvFile.close()
 
-
+print(quora[50])
 list1 = [1,4,7,12,14,21,22] #4,7
 newList = [[l[i] for i in list1] for l in quora]
-
+print(newList[50])
 for i in range(0,len(newList)) :
     if newList[i][0] == "information" :
         newList[i][0]=0
